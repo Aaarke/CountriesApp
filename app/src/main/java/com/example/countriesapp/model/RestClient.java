@@ -10,6 +10,7 @@ import io.reactivex.Single;
 
 public class RestClient {
     public static final String BASE_URL = "https://raw.githubusercontent.com/";
+
     private static RestClient instance;
 
     private RestClient() {

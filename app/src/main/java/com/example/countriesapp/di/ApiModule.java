@@ -23,4 +23,9 @@ public class ApiModule {
                 create(ApiInterface.class);
     }
 
+    @Provides
+    public RestClient getInstance() {
+        return RestClient.getInstance();
+    }
+
 }
