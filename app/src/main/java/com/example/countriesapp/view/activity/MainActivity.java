@@ -43,12 +43,9 @@ public class MainActivity extends AppCompatActivity {
         viewModel= ViewModelProviders.of(this).get(ListViewModel.class);
         viewModel.refresh();
         setAdapter();
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                viewModel.refresh();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            viewModel.refresh();
+            swipeRefreshLayout.setRefreshing(false);
         });
     }
 

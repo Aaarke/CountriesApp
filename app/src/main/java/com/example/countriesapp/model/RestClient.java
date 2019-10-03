@@ -1,18 +1,19 @@
 package com.example.countriesapp.model;
 
+import com.example.countriesapp.di.DaggerApiComponent;
+
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
     public static final String BASE_URL = "https://raw.githubusercontent.com/";
     private static RestClient instance;
 
     private RestClient() {
-
+        DaggerApiComponent.create().inject(this);
     }
 
     public static RestClient getInstance() {
@@ -22,14 +23,10 @@ public class RestClient {
         return instance;
     }
 
-    private ApiInterface getApiInterface = new Retrofit.Builder().
-            baseUrl(BASE_URL).
-            addConverterFactory(GsonConverterFactory.create()).
-            addCallAdapterFactory(RxJava2CallAdapterFactory.create()).
-            build().
-            create(ApiInterface.class);
+    @Inject
+     ApiInterface getApiInterface;
 
-    public Single<List<CountryModel>>getCountries(){
+    public Single<List<CountryModel>> getCountries() {
         return getApiInterface.getCounrtris();
     }
 }
